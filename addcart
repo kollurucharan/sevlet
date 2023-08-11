@@ -1,0 +1,86 @@
+package com.charan;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+public class addCart extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+	String img;
+	String title;
+	String price;
+	String rating;
+
+	public addCart() {
+
+	}
+
+	public addCart(String img, String title, String price, String rating) {
+		this.img = img;
+		this.title = title;
+		this.price = price;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
+	public String getRating() {
+		return rating;
+	}
+
+	public void setRating(String rating) {
+		this.rating = rating;
+	}
+
+	ArrayList<addCart> al = new ArrayList<>();
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String imgValue = request.getParameter("img");
+		String titleValue = request.getParameter("title");
+		String priceValue = request.getParameter("price");
+		String ratingValue = request.getParameter("rating");
+		System.out.println(titleValue);
+
+		addCart ac = new addCart(imgValue, titleValue, priceValue, ratingValue);
+		al.add(ac);
+		for (addCart i : al) {
+			System.out.println(i.getImg());
+			System.out.println(i.getTitle());
+			System.out.println(i.getPrice());
+			System.out.println(i.getRating());
+
+		}
+
+		HttpSession session = request.getSession();
+		session.setAttribute("arrayList", al);
+
+	}
+
+}
