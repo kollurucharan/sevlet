@@ -1,0 +1,628 @@
+<!DOCTYPE html><html>
+    <head >
+        <title>shopping</title>
+        <link rel="stylesheet" href="cart.css">
+       
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <h1 >WEB PAGE FOR SHOPPING</h1>
+    </head>
+    
+    <body>
+        <h2>
+    <div id="d1">
+            <form>
+        <div  class="row" id="d23">
+            <div  id="d2" class="col-sm-4">
+                <label for="l1" id="l1">search</label>
+                <input type="text" id="t1"> 
+            </div>
+            <div id="d3" class="col-sm-4">
+                <input type="button" id="b1" onclick="search()" value="search">
+            </div>
+        
+        
+            <div id="d4">
+                <input type="button" id="b2" value="Go to Cart">
+            </div>
+            <div id="d5">
+               <select id="s1" >
+                <option value="v1">below 1000</option>
+                <option value="v2">1000-2000</option>
+                <option value="v3">2000-3000</option> 
+                <option value="v4">3000 above</option>
+               </select>
+            </div>
+         
+    </div>
+    </form>
+    </h2>
+
+    <div id="paper1"></div>
+    <div id="paper2"></div>
+    <div id="not"></div>
+
+    <div id="p1"></div>
+
+    <script>
+        var data={"data1":[
+    {
+        "img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg ",
+        "title": "Product 1",
+        "price": "900",
+        "rating": "★★★★☆"
+    },
+    {
+        "img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 2",
+        "price": "1500",
+        "rating": "★★★☆☆"
+    },
+    {"img":"https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 32",
+        "price": "2500",
+        "rating": "★★★★★"
+    },{
+        "img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 1",
+        "price": "3001",
+        "rating": "★★★★☆"
+    },
+    {
+        "img":"https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 2",
+        "price": "9999",
+        "rating": "★★★☆☆"
+    },
+    {"img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 32",
+        "price": "8949",
+        "rating": "★★★★★"
+    },{
+        "img":"https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 1",
+        "price": "10000",
+        "rating": "★★★★☆"
+    },
+    {
+        "img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 2",
+        "price": "2548",
+        "rating": "★★★☆☆"
+    },
+    {"img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 32",
+        "price": "3698",
+        "rating": "★★★★★"
+    },
+    {
+        "img": "https://www.livemint.com/lm-img/img/2023/04/23/1600x900/MS_Dhoni_1682266132445_1682266132661.jpg",
+        "title": "Product 2",
+        "price": "2548",
+        "rating": "★★★☆☆"
+    },
+]};
+        var arr=[];
+       
+        const dataLength = data.data1.length ;
+        console.log(dataLength) ;
+        const perPage=8;
+        var totalPages =Math.ceil(dataLength/perPage);
+        console.log(totalPages) ;
+        var currentPage=1;
+        
+        const dataDisplay1= document.getElementById('paper1');
+        const dataDisplay2= document.getElementById('paper2');
+        const pageDisplay= document.getElementById('p1');
+         //----------------------------------add cart-----------------------------------------------
+
+    
+function cart(i)
+         {
+        	
+        	 
+        	var a = data.data1[i].img;
+            var b = data.data1[i].title;
+            var c = data.data1[i].price;
+            var d = data.data1[i].rating;
+            
+          var x=new XMLHttpRequest();
+          var baseUrl = "addCart";
+      
+          var urlWithParameters = baseUrl + "?img=" + a + "&title=" + b+"&price="+c+"&rating="+d;
+
+          console.log(urlWithParameters);
+       	  x.open("GET",urlWithParameters,true);
+       	  x.onreadystatechange = function(){
+       		if(x.readyState==4&&x.status==200){
+       			console.log("success");
+       		}
+       	    };
+       	 
+       	  x.send();
+            }
+	
+
+
+//-------------------------------default page---------------------------
+       
+        function cardData(i)
+        {
+            var cardDiv = document.createElement("div");
+            cardDiv.className = "card";
+            cardDiv.style.width = "18rem";
+
+            var imgElement = document.createElement("img");
+            imgElement.className = "card-img-top";
+            imgElement.alt = "Product Image";
+            imgElement.id = "img7";
+            imgElement.src = data.data1[i].img;
+
+   
+            imgElement.style.maxWidth = "100%";
+            imgElement.style.height = "auto";
+           
+            
+            var cardBodyDiv = document.createElement("div");
+            cardBodyDiv.className = "card-body";
+
+            var titleElement = document.createElement("h5");
+            titleElement.className = "card-title";
+            titleElement.id = "t7";
+            titleElement.textContent = data.data1[i].title;
+
+            var priceElement = document.createElement("p");
+            priceElement.className = "card-text";
+            priceElement.id = "p7";
+            priceElement.textContent =  data.data1[i].price;
+
+            var ratingElement = document.createElement("p");
+            ratingElement.className = "card-text";
+            ratingElement.id = "r7";
+            ratingElement.textContent =  data.data1[i].rating;
+
+            var addToCartLink = document.createElement("button");
+            addToCartLink.className = "btn btn-primary";
+            addToCartLink.id = "a7";
+            addToCartLink.textContent = "Add to Cart";
+            addToCartLink.addEventListener("click",function(){
+            	cart(i);
+            });
+            
+
+            cardBodyDiv.appendChild(titleElement);
+            cardBodyDiv.appendChild(priceElement);
+            cardBodyDiv.appendChild(ratingElement);
+            cardBodyDiv.appendChild(addToCartLink);
+
+            cardDiv.appendChild(imgElement);
+            cardDiv.appendChild(cardBodyDiv);
+            return cardDiv;
+        }
+        function content(page)
+        {
+            var arr = [];
+          dataDisplay1.innerHTML='';  
+          dataDisplay2.innerHTML='';  
+          firstIndex=(page-1)*perPage;
+          lastIndex=(firstIndex-1)+perPage;
+          var counttt=0  
+          for(let i=firstIndex;i<=lastIndex;i++)
+          {
+            
+           var temp=cardData(i);
+            
+            if(counttt<4)
+            {
+            dataDisplay1.appendChild(temp);
+            counttt = counttt+1;
+            }
+            else
+            {
+             
+            dataDisplay2.appendChild(temp);
+            counttt = counttt+1;
+            }
+          }
+        
+          currentPage=page;
+        }
+
+
+        function forButton()
+       {
+        for(let i=1;i<=totalPages;i++)
+        {
+            var button=document.createElement('button');
+            button.textContent=i;
+            button.addEventListener("click",function(){
+                content(i);
+            });
+           pageDisplay.appendChild(button);
+        }
+       }
+       
+       
+       forButton();
+       content(currentPage);
+
+
+       //------------------------------------search-------------------------------------------------
+       function search()
+       {
+        const f=document.getElementById('t1').value;
+        console.log(f);
+        var count=0;
+        function countt()
+        {
+     
+        for(let i=0;i<dataLength;i++)
+        {
+            if(f==data.data1[i].title)
+            {
+                console.log(data.data1[i].title);
+                count=count+1;
+                console.log('kjsbfj'+count);
+                
+            }
+         } 
+         console.log('iii'+count);
+        if(count == 0)
+        {
+           
+            document.getElementById('not').innerHTML='data was not found';
+        }
+        else{
+            document.getElementById('not').innerHTML='';
+
+        }
+        
+        }
+
+        function content(page)
+        {
+          dataDisplay1.innerHTML='';  
+          dataDisplay2.innerHTML='';  
+          firstIndex=(page-1)*perPage;
+          lastIndex=firstIndex+perPage;  
+          for(let i=firstIndex;i<lastIndex;i++)
+          {
+            if(f==data.data1[i].title)
+            {
+                console.log('hello'+f);
+                console.log('hello2'+data.data1[i].title);
+                
+                var temp=cardData(i);
+           
+            
+            if(count<=4)
+            {
+            dataDisplay1.appendChild(temp);
+            }
+            else{
+                dataDisplay2.appendChild(temp); 
+            }
+            }
+            
+          }
+        
+          currentPage=page;
+        }
+        
+       
+
+
+        
+       function forButton()
+       {
+        var totalSearchCards=Math.ceil(count/perPage);
+        pageDisplay.innerHTML='';
+        console.log('t'+totalSearchCards);
+        console.log('t'+count);
+        for(let i=1;i<=totalSearchCards;i++)
+        {   
+            var button=document.createElement('button');
+            button.textContent=i;
+            button.addEventListener("click",function(){
+                content(i);
+            });
+           
+           pageDisplay.appendChild(button);
+           
+        }
+       }
+       countt();
+       forButton();
+       content(currentPage);
+       
+    } 
+    //--------------------------------go to cart-------------------------------
+ var arrLength1=0;
+   		var xd;
+    document.getElementById('b2').addEventListener('click',function()
+    {
+    	 
+    	var x=new XMLHttpRequest();
+    	x.open("GET", "http://localhost:8080/MyServlet/goToCart", true);
+
+
+    	  x.onreadystatechange = function()
+    	  {
+    		if(x.readyState==4&&x.status==200)
+    		{
+    			 console.log(x.responseText);
+                xd = JSON.parse(x.responseText); 
+               arrLength1=xd.length;
+			
+             
+    			
+    		}};
+    	 
+    	  x.send();
+   
+    	  
+    	  
+    	  console.log('length'+arrLength1); 
+        
+       if(arrLength1==0)
+       {
+
+        document.getElementById('not').innerHTML='data was not found';
+        }
+        else{
+            document.getElementById('not').innerHTML='';
+         }
+
+
+         function content(page)
+        {
+          dataDisplay1.innerHTML='';  
+          dataDisplay2.innerHTML='';  
+          firstIndex=(page-1)*perPage;
+          lastIndex=firstIndex+perPage;  
+          for(let i=firstIndex;i<lastIndex;i++)
+          {
+            
+                var cardDiv = document.createElement("div");
+            cardDiv.className = "card";
+            cardDiv.style.width = "18rem";
+
+            var imgElement = document.createElement("img");
+            imgElement.className = "card-img-top";
+            imgElement.alt = "Product Image";
+            imgElement.id = "img7";
+            console.log(xd);
+            imgElement.src = xd[i].img;
+            
+
+            
+            var cardBodyDiv = document.createElement("div");
+            cardBodyDiv.className = "card-body";
+
+            var titleElement = document.createElement("h5");
+            titleElement.className = "card-title";
+            titleElement.id = "t7";
+            titleElement.textContent = xd[i].title;
+
+            var priceElement = document.createElement("p");
+            priceElement.className = "card-text";
+            priceElement.id = "p7";
+            priceElement.textContent =   xd[i].price;
+
+            var ratingElement = document.createElement("p");
+            ratingElement.className = "card-text";
+            ratingElement.id = "r7";
+            ratingElement.textContent =  xd[i].rating;
+
+           
+            cardBodyDiv.appendChild(titleElement);
+            cardBodyDiv.appendChild(priceElement);
+            cardBodyDiv.appendChild(ratingElement);
+           
+            cardDiv.appendChild(imgElement);
+            cardDiv.appendChild(cardBodyDiv);
+            
+            
+            if(i<(lastIndex)/2)
+            {
+            dataDisplay1.appendChild(cardDiv);
+            }
+            else
+            {
+            dataDisplay2.appendChild(cardDiv);
+            }
+          }
+         currentPage=page;
+        }
+        
+       
+
+
+        
+       function forButton()
+       {
+        var totalSearchCards=Math.ceil(arrLength1/perPage);
+        pageDisplay.innerHTML='';
+        console.log('t'+totalSearchCards);
+       
+        for(let i=1;i<=totalSearchCards;i++)
+        {   
+            var button=document.createElement('button');
+            button.textContent=i;
+            button.addEventListener("click",function(){
+                content(i);
+            });
+           
+           pageDisplay.appendChild(button);
+           
+        }
+       }
+      
+       forButton();
+       content(currentPage);
+       
+    });
+   
+    
+   /*  document.getElementById('b2').addEventListener('click',function()
+    	    {
+    	
+               }*/
+   	 
+    	    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //----------------------------sort----------------------------------------
+    document.getElementById("s1").addEventListener('click',function()
+       {
+        //const f=document.getElementById('t1').value;
+        const v=document.getElementById('s1').value;
+        console.log(v);
+        
+        var count=0;
+        function countt()
+        {
+     
+        for(let i=0;i<dataLength;i++)
+        {
+            if(v=='v1')
+            {
+                if(data.data1[i].price<1000)
+                {
+                console.log(data.data1[i].price);
+                count=count+1;
+                console.log('kjsbfj'+count);
+                }
+                
+            }
+            else if(v=='v2')
+            {
+                if(data.data1[i].price>=1000 || data.data1[i].price<2000)
+                {
+                console.log(data.data1[i].price);
+                count=count+1;
+                console.log('kjsbfj'+count);
+                }
+            }
+            else if(v=='v3')
+            {   if(data.data1[i].price>=2000|| data.data1[i].price<3000)
+                {
+                console.log(data.data1[i].price);
+                count=count+1;
+                console.log('kjsbfj'+count);
+                }
+            }
+            else
+            {
+                if(data.data1[i].price>3000)
+                {
+                console.log(data.data1[i].price);
+                count=count+1;
+                console.log('kjsbfj'+count);
+                }
+            }
+
+
+         } 
+         console.log('iii'+count);
+        if(count == 0)
+        {
+           
+            document.getElementById('not').innerHTML='data was not found';
+        }
+        else{
+            document.getElementById('not').innerHTML='';
+
+        }
+        
+        }
+
+        function content(page)
+        {
+          dataDisplay1.innerHTML='';  
+          dataDisplay2.innerHTML='';  
+          firstIndex=(page-1)*perPage;
+          lastIndex=firstIndex+perPage;  
+          for(let i=firstIndex;i<lastIndex;i++)
+          {
+            if('Product 2'==data.data1[i].title)
+            {
+                
+                console.log('hello2'+data.data1[i].title);
+                
+                var temp=cardData(i);
+           
+            
+            if(i<(lastIndex)/2)
+            {
+            dataDisplay1.appendChild(temp);
+            }
+            else{
+            dataDisplay2.appendChild(temp); 
+            }
+            }
+            
+          }
+        
+          currentPage=page;
+        }
+        
+       
+
+
+        
+       function forButton()
+       {
+        var totalSearchCards=Math.ceil(count/perPage);
+        pageDisplay.innerHTML='';
+        console.log('t'+totalSearchCards);
+        console.log('t'+count);
+        for(let i=1;i<=totalSearchCards;i++)
+        {   
+            var button=document.createElement('button');
+            button.textContent=i;
+            button.addEventListener("click",function(){
+                content(i);
+            });
+           
+           pageDisplay.appendChild(button);
+           
+        }
+       }
+       countt();
+       forButton();
+       content(currentPage);
+       
+    } );
+
+
+        
+   
+
+
+        
+
+        
+    </script>
+
+    </body>
+</html>
