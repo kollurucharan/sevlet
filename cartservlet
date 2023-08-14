@@ -104,6 +104,7 @@
     },
 ]};
         var arr=[];
+    
        
         const dataLength = data.data1.length ;
         console.log(dataLength) ;
@@ -339,12 +340,13 @@ function cart(i)
     } 
     //--------------------------------go to cart-------------------------------
  var arrLength1=0;
-   		var xd;
+ var xd;
+
     document.getElementById('b2').addEventListener('click',function()
     {
-    	 
-    	var x=new XMLHttpRequest();
-    	x.open("GET", "http://localhost:8080/MyServlet/goToCart", true);
+    	 var x=new XMLHttpRequest();
+    		x.open("GET", "http://localhost:8080/MyServlet/goToCart", true);
+    	
 
 
     	  x.onreadystatechange = function()
@@ -355,15 +357,15 @@ function cart(i)
                 xd = JSON.parse(x.responseText); 
                arrLength1=xd.length;
 			
+               console.log('length'+arrLength1); 
              
     			
-    		}};
-    	 
-    	  x.send();
+    		
+    	
    
     	  
     	  
-    	  console.log('length'+arrLength1); 
+    	  console.log('lengtgfdhh'+arrLength1); 
         
        if(arrLength1==0)
        {
@@ -377,6 +379,7 @@ function cart(i)
 
          function content(page)
         {
+        	 console.log("shdgfk");
           dataDisplay1.innerHTML='';  
           dataDisplay2.innerHTML='';  
           firstIndex=(page-1)*perPage;
@@ -393,7 +396,10 @@ function cart(i)
             imgElement.alt = "Product Image";
             imgElement.id = "img7";
             console.log(xd);
+            console.log("hii");
             imgElement.src = xd[i].img;
+            imgElement.style.maxWidth = "100%"; 
+            imgElement.style.height = "auto"; 
             
 
             
@@ -458,18 +464,16 @@ function cart(i)
            
         }
        }
-      
        forButton();
        content(currentPage);
+    		}};
+  	      
+ 	       x.send();
+ 	
        
     });
    
-    
-   /*  document.getElementById('b2').addEventListener('click',function()
-    	    {
-    	
-               }*/
-   	 
+
     	    
     
     
