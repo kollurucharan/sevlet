@@ -62,14 +62,17 @@ public class addCart extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String imgValue = request.getParameter("img");
 		String titleValue = request.getParameter("title");
 		String priceValue = request.getParameter("price");
 		String ratingValue = request.getParameter("rating");
+
 		System.out.println(titleValue);
 
 		addCart ac = new addCart(imgValue, titleValue, priceValue, ratingValue);
 		al.add(ac);
+		System.out.println(al + "chasrn");
 		for (addCart i : al) {
 			System.out.println(i.getImg());
 			System.out.println(i.getTitle());
