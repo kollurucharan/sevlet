@@ -20,31 +20,41 @@ public class goToCart extends HttpServlet {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
+		int a = 1 * 60;
+		session.setMaxInactiveInterval(a);
 		ArrayList<addCart> al = new ArrayList<addCart>();
 		al = (ArrayList<addCart>) session.getAttribute("arrayList");
-		for (addCart i : al) {
-			System.out.println(i.getImg());
-			System.out.println(i.getTitle());
-			System.out.println(i.getPrice());
-			System.out.println(i.getRating());
-		}
+		System.out.println("heloo" + al);
 
 		JSONArray jsonArray = new JSONArray();
 
-		for (addCart cartItem : al) {
-			JSONObject cartItemJson = new JSONObject();
-			try {
-				cartItemJson.put("img", cartItem.getImg());
-				cartItemJson.put("title", cartItem.getTitle());
-				cartItemJson.put("price", cartItem.getPrice());
-				cartItemJson.put("rating", cartItem.getRating());
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			jsonArray.put(cartItemJson);
+		if (al == null) {
 
+		} else {
+
+			for (addCart i : al) {
+				System.out.println(i.getImg());
+				System.out.println(i.getTitle());
+				System.out.println(i.getPrice());
+				System.out.println(i.getRating());
+			}
+
+			for (addCart cartItem : al) {
+				JSONObject cartItemJson = new JSONObject();
+				try {
+					cartItemJson.put("img", cartItem.getImg());
+					cartItemJson.put("title", cartItem.getTitle());
+					cartItemJson.put("price", cartItem.getPrice());
+					cartItemJson.put("rating", cartItem.getRating());
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				jsonArray.put(cartItemJson);
+
+			}
+
+			System.out.println("dgssd" + jsonArray.toString());
 		}
-		System.out.println("dgssd" + jsonArray.toString());
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
