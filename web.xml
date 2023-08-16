@@ -1,0 +1,21 @@
+    <servlet>
+        <servlet-name>addCart</servlet-name>
+        <servlet-class>com.charan.addCart</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>addCart</servlet-name>
+        <url-pattern>/addCart</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>goToCart</servlet-name>
+        <servlet-class>com.charan.goToCart</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>goToCart</servlet-name>
+        <url-pattern>/goToCart</url-pattern>
+    </servlet-mapping>
+    <session-config>
+    <session-timeout>1</session-timeout>
+    </session-config>
